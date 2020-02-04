@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         buttonc=(Button)findViewById(R.id.buttonC);
         buttonAC=(Button)findViewById(R.id.buttonAC);
         Value=(EditText)findViewById(R.id.Value);
-        button0.setBackgroundColor(Color.RED);
+        buttonAC.setBackgroundColor(Color.GREEN);
     button0.setOnClickListener(new View.OnClickListener(){
         @Override
                 public void onClick(View V)
