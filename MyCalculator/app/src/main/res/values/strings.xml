@@ -16,4 +16,9 @@
     <string name="m">M</string>
     <string name="d">D</string>
     <string name="e">E</string>
+    <string name="equal">-</string>
+    <string name="addition">+</string>
+    <string name="substraction">*</string>
+    <string name="divide">/</string>
+    <string name="equalto">=</string>
 </resources>

@@ -8,8 +8,8 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="395dp"
-        android:layout_height="314dp"
+        android:layout_width="809dp"
+        android:layout_height="219dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -58,6 +58,7 @@
 
         <Button
             android:id="@+id/button9"
+            android:layout_width="168dp"
             android:text="@string/_9"
             app:layout_column="2"
             app:layout_gravity="fill"
@@ -65,6 +66,7 @@
 
         <Button
             android:id="@+id/buttonC"
+            android:layout_width="554dp"
             android:text="@string/c"
             app:layout_column="3"
             app:layout_gravity="fill"
@@ -127,23 +129,28 @@
             app:layout_row="3" />
     </androidx.gridlayout.widget.GridLayout>
 
-    <TextView
-        android:id="@+id/vk"
-        android:layout_width="336dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/Value"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
+    <EditText
         android:id="@+id/Value"
-        android:layout_width="327dp"
-        android:layout_height="93dp"
+        android:layout_width="354dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="164dp"
+        android:ems="10"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/gridLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/vk"
+        android:layout_width="347dp"
+        android:layout_height="88dp"
+        app:layout_constraintBottom_toTopOf="@+id/Value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.474"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.592" />
 </androidx.constraintlayout.widget.ConstraintLayout>

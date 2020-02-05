@@ -4,15 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 public class MainActivity extends AppCompatActivity {
     Button button1,button2,button3,button4,button5,button6,button7,button8,button9,buttonp,buttons,buttonc,buttonAC,buttonm,buttond,button0;
-    EditText Value;
+    TextView Value;
+    TextView vk;
     double v1,v2;
     char k;
     @Override
@@ -35,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         buttond=(Button)findViewById(R.id.buttond);
         buttonc=(Button)findViewById(R.id.buttonC);
         buttonAC=(Button)findViewById(R.id.buttonAC);
-        Value=(EditText)findViewById(R.id.Value);
-        buttonAC.setBackgroundColor(Color.GREEN);
+        Value=(TextView)findViewById(R.id.Value);
+        vk=(TextView)findViewById(R.id.vk);
     button0.setOnClickListener(new View.OnClickListener(){
         @Override
                 public void onClick(View V)
@@ -110,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View V)
         {
+            try{
             if(Value.getText()==null)
             {
                 Value.setText(null);
@@ -119,6 +126,11 @@ public class MainActivity extends AppCompatActivity {
             v1=Double.parseDouble((Value.getText()+"\0"));
             Value.setText(null);
             k='+';
+            vk.setText(Double.toString(v1)+"+");
+            }}
+            catch(Exception e)
+            {
+                Toast.makeText(MainActivity.this,"Nothing to add",Toast.LENGTH_SHORT).show();
             }
         }
     });
@@ -126,15 +138,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View V)
             {
-                if(Value.getText()==null)
-                {
-                    Value.setText(null);
+                try {
+                    if (Value.getText() == null) {
+                        Value.setText(null);
+                    } else {
+                        v1 = Double.parseDouble((Value.getText() + "\0"));
+                        Value.setText(null);
+                        k = '-';
+                        vk.setText(Double.toString(v1)+"-");
+                    }
                 }
-                else
+                catch(Exception e)
                 {
-                    v1=Double.parseDouble((Value.getText()+"\0"));
-                    Value.setText(null);
-                    k='-';
+                    Toast.makeText(MainActivity.this,"Nothing to substract",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -142,15 +158,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View V)
             {
-                if(Value.getText()==null)
-                {
-                    Value.setText(null);
+                try {
+                    if (Value.getText() == null) {
+                        Value.setText(null);
+                    } else {
+                        v1 = Double.parseDouble((Value.getText() + "\0"));
+                        Value.setText(null);
+                        k = '*';
+                        vk.setText(Double.toString(v1)+"*");
+                    }
                 }
-                else
+                catch(Exception e)
                 {
-                    v1=Double.parseDouble((Value.getText()+"\0"));
-                    Value.setText(null);
-                    k='*';
+                    Toast.makeText(MainActivity.this,"Nothing to multiply",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -158,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View V)
             {
+                try{
                 if(Value.getText()==null)
                 {
                     Value.setText(null);
@@ -167,17 +188,36 @@ public class MainActivity extends AppCompatActivity {
                     v1=Double.parseDouble((Value.getText()+"\0"));
                     Value.setText(null);
                     k='/';
+                    vk.setText(Double.toString(v1)+"/");
+                }}
+                catch(Exception e)
+                {
+                    Toast.makeText(MainActivity.this,"Nothing to divide",Toast.LENGTH_SHORT).show();
                 }
             }
         });
         buttonc.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V) {
-                if (Value.getText() == null) {
-
-                } else {
-                    String o = Value.getText().toString();
-                    Value.setText(o.substring(0, o.length() - 1));
+                try {
+                    if((vk.getText()!=null)&&(Value.getText()==null))
+                    {
+                        String h=vk.getText().toString();
+                        Value.setText(h.substring(0,h.length()-1));
+                        k='\0';
+                        vk.setText(null);
+                    }
+                    else if (Value.getText() == null) {
+                        Toast.makeText(MainActivity.this,"Nothing to clear",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        String o = Value.getText().toString();
+                        Value.setText(o.substring(0, o.length() - 1));
+                    }
+                }
+                catch(Exception e)
+                {
+                    Toast.makeText(MainActivity.this,"Nothing to clear",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -185,13 +225,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+                try
+                {
                 if(k=='\0')
                 {
                     Value.setText(Value.getText());
                 }
                 else
                 {
-                    v2=Double.parseDouble(Value.getText()+"\0");
+                    String h=Value.getText().toString();
+                    v2=Double.parseDouble(h.substring(0,h.length()-1));
                     double v3=0;
                     switch(k)
                     {
@@ -205,6 +248,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     Value.setText(Double.toString(v3));
+                }}
+                catch(Exception e)
+                {
+                    Toast.makeText(MainActivity.this,"Error",Toast.LENGTH_SHORT).show();
                 }
             }
         });
