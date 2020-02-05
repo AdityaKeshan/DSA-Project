@@ -11,12 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import org.w3c.dom.Text;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 public class MainActivity extends AppCompatActivity {
-    Button button1,button2,button3,button4,button5,button6,button7,button8,button9,buttonp,buttons,buttonc,buttonAC,buttonm,buttond,button0;
+    Button button1,button2,button3,button4,button5,button6,button7,button8,button9,buttonp,buttons,buttonc,buttonAC,buttonm,buttond,button0,buttonclear,buttonsq,buttonpow,buttondot;
     TextView Value;
     TextView vk;
     double v1,v2;
@@ -41,20 +42,24 @@ public class MainActivity extends AppCompatActivity {
         buttond=(Button)findViewById(R.id.buttond);
         buttonc=(Button)findViewById(R.id.buttonC);
         buttonAC=(Button)findViewById(R.id.buttonAC);
+        buttonclear=(Button)findViewById(R.id.buttonclear);
+        buttonsq=(Button)findViewById(R.id.buttonsq);
+        buttonpow=(Button)findViewById(R.id.buttonpow);
+        buttondot=(Button)findViewById(R.id.buttondot);
         Value=(TextView)findViewById(R.id.Value);
         vk=(TextView)findViewById(R.id.vk);
     button0.setOnClickListener(new View.OnClickListener(){
         @Override
                 public void onClick(View V)
                 {
-                    Value.setText(Value.getText()+"0");
+                    Value.setText(Value.getText().toString()+"0");
                 }
     });
     button1.setOnClickListener(new View.OnClickListener(){
         @Override
         public void onClick(View V)
         {
-            Value.setText(Value.getText()+"1");
+            Value.setText(Value.getText().toString()+"1");
         }
     });
     button2.setOnClickListener(new View.OnClickListener(){
@@ -123,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else
                 {
-            v1=Double.parseDouble((Value.getText()+"\0"));
+            v1=Double.parseDouble((Value.getText().toString()));
             Value.setText(null);
             k='+';
             vk.setText(Double.toString(v1)+"+");
@@ -134,6 +139,72 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     });
+    buttonclear.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            vk.setText(null);
+            Value.setText(null);
+            v1 = 0;
+            v2 = 0;
+            k = '\0';
+        }
+    });
+    buttonsq.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View V) {
+            try {
+                if (Value.getText() == null) {
+                    Value.setText(null);
+                } else {
+                    double l = Double.parseDouble(Value.getText().toString());
+                    l = Math.sqrt(l);
+                    Value.setText(Double.toString(l));
+                }
+            }
+            catch(Exception e)
+            {
+                Toast.makeText(MainActivity.this,"Nothing to operate on",Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
+        buttondot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View V) {
+                try {
+                    if (Value.getText() == null) {
+                        Value.setText(null);
+                    } else {
+                        double l = Double.parseDouble(Value.getText().toString());
+                        l = (0.01*l);
+                        Value.setText(Double.toString(l));
+                    }
+                }
+                catch(Exception e)
+                {
+                    Toast.makeText(MainActivity.this,"Nothing to operate on",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        buttonpow.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View V)
+            {
+                try {
+                    if (Value.getText() == null) {
+                        Value.setText(null);
+                    } else {
+                        v1 = Double.parseDouble((Value.getText().toString()));
+                        Value.setText(null);
+                        k = '^';
+                        vk.setText(Double.toString(v1)+"^");
+                    }
+                }
+                catch(Exception e)
+                {
+                    Toast.makeText(MainActivity.this,"Nothing to Exponentize",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         buttons.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V)
@@ -142,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     if (Value.getText() == null) {
                         Value.setText(null);
                     } else {
-                        v1 = Double.parseDouble((Value.getText() + "\0"));
+                        v1 = Double.parseDouble((Value.getText().toString()));
                         Value.setText(null);
                         k = '-';
                         vk.setText(Double.toString(v1)+"-");
@@ -162,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                     if (Value.getText() == null) {
                         Value.setText(null);
                     } else {
-                        v1 = Double.parseDouble((Value.getText() + "\0"));
+                        v1 = Double.parseDouble((Value.getText().toString()));
                         Value.setText(null);
                         k = '*';
                         vk.setText(Double.toString(v1)+"*");
@@ -185,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    v1=Double.parseDouble((Value.getText()+"\0"));
+                    v1=Double.parseDouble((Value.getText().toString()));
                     Value.setText(null);
                     k='/';
                     vk.setText(Double.toString(v1)+"/");
@@ -202,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if((vk.getText()!=null)&&(Value.getText()==null))
                     {
-                        String h=vk.getText().toString();
+                        String h=(vk.getText()+"\0").toString();
                         Value.setText(h.substring(0,h.length()-1));
                         k='\0';
                         vk.setText(null);
@@ -234,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                 {
                     String h=Value.getText().toString();
-                    v2=Double.parseDouble(h.substring(0,h.length()-1));
+                    v2=Double.parseDouble(h);
                     double v3=0;
                     switch(k)
                     {
@@ -246,12 +317,16 @@ public class MainActivity extends AppCompatActivity {
                         break;
                         case '/':v3=v1/v2;
                         break;
+                        case '^':v3=Math.pow(v1,v2);
+                        break;
                     }
+                    vk.setText(vk.getText()+Double.toString(v2));
                     Value.setText(Double.toString(v3));
                 }}
                 catch(Exception e)
                 {
-                    Toast.makeText(MainActivity.this,"Error",Toast.LENGTH_SHORT).show();
+                    e.getMessage();
+                    Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
         });
